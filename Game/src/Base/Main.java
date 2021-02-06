@@ -107,7 +107,7 @@ public class Main extends JPanel {
 
 
     public Main() {
-        JFrame frame = new JFrame("Goldman");
+        JFrame frame = new JFrame("Maze run");
 
         table=new JTable();
 
