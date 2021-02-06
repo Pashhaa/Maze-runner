@@ -2,110 +2,84 @@
 
 package Base;
 
+import Base.Objects.*;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import java.awt.*;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Main extends JPanel {
 
     final int BF_WIDTH = 576;
     final int BF_HEIGHT = 576;
-
-    int y = 6;
-    int x = 7;
+    private Player player;
 
 
-    int score = 0;
-    int countSteps = 50;
     String gameStatus = "Play Game";
-
     // B - Brick, M- Monster, GG - Gold, P - Player, G - Ground, E - Exit
-    String[][] data = {
-            {"B", "G", "B", "B", "B", "B", "B", "G", "B", "B", "G"},
-            {"GG", "G", "G", "GG", "GG", "GG", "E", "B", "B", "B", "G"},
-            {"G", "G", "B", "B", "G", "B", "B", "G", "B", "B", "G"},
-            {"G", "G", "B", "B", "M", "B", "B", "M", "B", "B", "G"},
-            {"GG", "G", "G", "B", "B", "B", "B", "G", "B", "B", "G"},
-            {"G", "M", "B", "B", "B", "B", "B", "G", "B", "B", "G"},
-            {"G", "B", "G", "G", "G", "G", "G", "P", "B", "B", "G"},
-            {"G", "G", "G", "B", "B", "GG", "G", "GG", "B", "B", "G"},
-            {"M", "B", "B", "B", "B", "B", "B", "B", "B", "B", "G"},
-            {"M", "B", "G", "G", "G", "G", "G", "G", "B", "B", "G"},
-            {"G", "G", "G", "B", "B", "G", "G", "G", "B", "B", "G"},
-            {"G", "M", "B", "B", "B", "B", "B", "G", "B", "B", "G"}
+    private AbstractFigur[][] data = {
+            {new Emptiness(), new Emptiness(), new Wall(), new Emptiness(), new Emptiness(), new Wall(), new Emptiness(), new Emptiness(), new Emptiness(), new Emptiness(), new Emptiness()},
+            {new Wall(), new Emptiness(), new Wall(), new Emptiness(), new Emptiness(), new Wall(), new Emptiness(), new Emptiness(), new Emptiness(), new Emptiness(), new Wall()},
+            {new Wall(), new Emptiness(), new Emptiness(), new Emptiness(), new Emptiness(), new Emptiness(), new Wall(), new Emptiness(), new Emptiness(), new Wall(), new Emptiness()},
+            {new Wall(), new Wall(), new Emptiness(), new Emptiness(), new Emptiness(), new Emptiness(), new Emptiness(), new Emptiness(), new Emptiness(), new Wall(), new Emptiness()},
+            {new Emptiness(), new Wall(), new Wall(), new Emptiness(), new Emptiness(), new Emptiness(), new Wall(), new Emptiness(), new Emptiness(), new Emptiness(), new Emptiness()},
+            {new Emptiness(), new Emptiness(), new Wall(), new Emptiness(), new Emptiness(), new Emptiness(), new Emptiness(), new Emptiness(), new Wall(), new Emptiness(), new Emptiness()},
+            {new Emptiness(), new Emptiness(), new Emptiness(), new Emptiness(), new Emptiness(), new Emptiness(), new Emptiness(), new Emptiness(), new Wall(), new Emptiness(), new Emptiness()},
+            {new Emptiness(), new Emptiness(), new Emptiness(), new Emptiness(), new Emptiness(), new Emptiness(), new Emptiness(), new Emptiness(),new Wall(), new Emptiness(), new Emptiness()},
+            {new Emptiness(), new Emptiness(), new Emptiness(), new Emptiness(),new Wall(), new Emptiness(), new Emptiness(), new Emptiness(), new Wall(), new Emptiness(), new Emptiness()},
+            {new Emptiness(), new Emptiness(), new Emptiness(), new Emptiness(), new Wall(), new Emptiness(), new Emptiness(), new Emptiness(), new Wall(), new Emptiness(), new Wall()},
+            {new Emptiness(), new Emptiness(), new Emptiness(), new Emptiness(), new Wall(), new Emptiness(), new Emptiness(), new Emptiness(), new Wall(), new Emptiness(), new Emptiness()},
+            {new Emptiness(), new Emptiness(), new Emptiness(), new Emptiness(), new Wall(), new Emptiness(), new Emptiness(), new Emptiness(), new Emptiness(), new Emptiness(), new Emptiness()}
     };
-
-
-    void moveUp() throws Exception{
-        data[y][x] = "G";
-        y--;
-        data[y][x] = "P";
-        drawTable();
-        Thread.sleep(600);
-    }
-    void moveDown()throws Exception{
-        data[y][x] = "G";
-        y++;
-        data[y][x] = "P";
-        drawTable();
-        Thread.sleep(600);
-    }
-    void moveLeft()throws Exception{
-        data[y][x] = "G";
-        x--;
-        data[y][x] = "P";
-        drawTable();
-        Thread.sleep(600);
-    }
-    void moveRight()throws Exception{
-        data[y][x] = "G";
-        x++;
-        data[y][x] = "P";
-        drawTable();
-        Thread.sleep(600);
+    {
+        RandomBotLoader();
     }
 
+    private void RandomBotLoader(){
+        AbstractFigur exit = new Exit();
+        Random random = new Random();
+        int exitIndexX = random.nextInt(12);
+        int exitIndexY = random.nextInt(11);
+        data[exitIndexY][exitIndexX] = exit;
+        String[] array = {"N","N","N","N","M","GG","E", "N", "N","N","N","N"};
+        int goldCount = 8;
+        int botCount = 5;
+        for (int i = 0; i < data.length; i++) {
+            for (int j = 0; j < data[i].length; j++) {
+                int elemIndex = random.nextInt(array.length);
+                if(data[i][j].getClass() == Emptiness.class) {
+                    AbstractFigur arrayValue;
+                    if (array[elemIndex].equals("M") && botCount > 0){
+                        arrayValue = new Bot();
+                        botCount--;
+                    }
+                    else if(array[elemIndex].equals("GG") && goldCount > 0){
+                        arrayValue = new Gold();
+                        goldCount--;
+                    }
+                    else {
+                        arrayValue = data[i][j];
+                    }
+                    arrayValue.setX(j);
+                    arrayValue.setY(i);
+                    data[i][j]=arrayValue;
+                }
 
-
-
-
-    // direction VALUE (1 - UP, 2 - DOWN, 3 - LEFT, 4 - RIGHT
-    void move(int direction) throws Exception{
-
-        if(direction == 1){
-            if(data[y - 1][x] == "G" || data[y - 1][x] == "GG" ){
-                moveUp();
             }
-            else {
-                return;
-            }
+
         }
-        if(direction == 2){
-            if(data[y + 1][x] == "G" || data[y + 1][x] == "GG" ){
-                moveDown();
-            }
-            else {
-                return;
-            }
-        }
-        if(direction == 3){
-            if(data[y][x - 1] == "G" || data[y][x - 1] == "GG" ){
-                moveLeft();
-            }
-            else {
-                return;
-            }
-        }
-        if(direction == 4){
-            if(data[y][x + 1] == "G" || data[y][x + 1] == "GG" ){
-                moveRight();
-            }
-            else {
-                return;
-            }
-        }
+        int playerX = 5;
+        int playerY = 6;
+        player = new Player();
+        player.setX(playerX);
+        player.setY(playerY);
+
+        data[playerY][playerX] = player;
+
+
 
     }
 
@@ -113,15 +87,7 @@ public class Main extends JPanel {
 
 
     void runTheGame() throws Exception {
-        moveLeft();
-        moveLeft();
-        moveLeft();
-        moveLeft();
-        moveLeft();
-        moveDown();
-        moveLeft();
-        moveLeft();
-        moveUp();
+
     }
 
 
@@ -173,11 +139,11 @@ public class Main extends JPanel {
     }
 
     private void score() {
-        labelScore.setText("Score: " + score);
+        labelScore.setText("Score: " + player.getScore());
     }
 
     private void countSteps() {
-        labelSteps.setText("Counter: " + countSteps);
+        labelSteps.setText("Counter: " + player.getCountSteps());
     }
 
     private void gameStatus() {
