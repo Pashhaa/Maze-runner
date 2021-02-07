@@ -8,32 +8,32 @@ public class Bot extends AbstractFigur{
         setImage(new ImageIcon(getClass().getResource("/images/monster_up.jpg")));
     }
     private void moveUp() throws Exception{
-/*        data[y][x] = "G";
+        data[y][x] = "G";
         y--;
         data[y][x] = "P";
         drawTable();
-        Thread.sleep(600);*/
+        Thread.sleep(600);
     }
     private void moveDown()throws Exception{
-/*        data[y][x] = "G";
+        data[y][x] = "G";
         y++;
         data[y][x] = "P";
         drawTable();
-        Thread.sleep(600);*/
+        Thread.sleep(600);
     }
     private void moveLeft()throws Exception{
-/*        data[y][x] = "G";
+        data[y][x] = "G";
         x--;
         data[y][x] = "P";
         drawTable();
-        Thread.sleep(600);*/
+        Thread.sleep(600);
     }
     private void moveRight()throws Exception{
-/*        data[y][x] = "G";
+        data[y][x] = "G";
         x++;
         data[y][x] = "P";
         drawTable();
-        Thread.sleep(600);*/
+        Thread.sleep(600);
     }
 
 
@@ -41,7 +41,7 @@ public class Bot extends AbstractFigur{
 
 
     // direction VALUE (1 - UP, 2 - DOWN, 3 - LEFT, 4 - RIGHT
-/*    public void move(int direction) throws Exception{
+    public void move(int direction) throws Exception{
 
         if(direction == 1){
             if(data[y - 1][x] == "G" || data[y - 1][x] == "GG" ){
@@ -76,5 +76,5 @@ public class Bot extends AbstractFigur{
             }
         }
 
-    }*/
+    }
 }
