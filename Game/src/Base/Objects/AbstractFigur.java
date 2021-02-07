@@ -3,7 +3,7 @@ package Base.Objects;
 import javax.swing.*;
 
 public abstract class AbstractFigur {
-    private int x, y;
+    public int x, y;
     private ImageIcon image;
 
     public int getX() {
