@@ -3,6 +3,7 @@
 package Base;
 
 import Base.MapLoaders.EasyLoader;
+import Base.MapLoaders.HardLoader;
 import Base.Objects.AbstractFigur;
 import Base.Objects.*;
 
@@ -37,7 +38,7 @@ public class Main extends JPanel {
     };
 
     {
-        loading(EasyLoader.getArray(), EasyLoader.getBotCount(),EasyLoader.getGoldCount());
+        loading(HardLoader.getArray(), HardLoader.getBotCount(),HardLoader.getGoldCount());
     }
 
     public AbstractFigur[][] loading(String[] array, int botCount, int goldCount){
@@ -89,11 +90,22 @@ public class Main extends JPanel {
 
 
 
+    private long firstTime, lastTime;
+    private double time;
 
     void runTheGame() throws Exception {
+        firstTime = System.currentTimeMillis();
         player.move(1);
+        player.move(1);
+        player.move(1);
+        lastTime = System.currentTimeMillis();
         gameStatus = "Game Over";
+        time = timeout(firstTime, lastTime);
         drawTable();
+    }
+    public double timeout(long firstTime, long lastTime){
+        double localTime = lastTime - firstTime;
+        return localTime/1000;
     }
 
 
@@ -109,6 +121,7 @@ public class Main extends JPanel {
     String[] column = new String[11];
     JLabel labelScore = new JLabel();
     JLabel labelSteps = new JLabel();
+    JLabel labelTime = new JLabel();
     JLabel labelGameStatus = new JLabel();
 
 
@@ -137,6 +150,7 @@ public class Main extends JPanel {
         add(table);
         add(labelScore);
         add(labelSteps);
+        add(labelTime);
         add(labelGameStatus);
         frame.setMinimumSize(new Dimension(WIDTH,HEIGHT + 22));
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -146,6 +160,9 @@ public class Main extends JPanel {
 
     private void score() {
         labelScore.setText("Score: " + player.getScore());
+    }
+    private void time(){
+        labelTime.setText("Time: " + time + " seconds") ;
     }
 
     private void countSteps() {
@@ -168,6 +185,7 @@ public class Main extends JPanel {
         }
         gameStatus();
         score();
+        time();
         countSteps();
     }
 

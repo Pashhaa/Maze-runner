@@ -4,14 +4,15 @@ import Base.Main;
 
 public abstract class AbstractMovingFigur extends AbstractFigur {
 
-    private Main gameMap;
+    protected Main gameMap;
+    private Gold gold;
 
 
     public void setGameMap(Main gameMap) {
         this.gameMap = gameMap;
     }
 
-    private void moveUp() throws Exception{
+    protected void moveUp() throws Exception{
         int y = getY();
         int x = getX();
         gameMap.data[y][x] = new Emptiness();
@@ -21,7 +22,7 @@ public abstract class AbstractMovingFigur extends AbstractFigur {
         gameMap.drawTable();
         Thread.sleep(600);
     }
-    private void moveDown()throws Exception{
+    protected void moveDown()throws Exception{
         int y = getY();
         int x = getX();
         gameMap.data[y][x] = new Emptiness();
@@ -31,7 +32,7 @@ public abstract class AbstractMovingFigur extends AbstractFigur {
         gameMap.drawTable();
         Thread.sleep(600);
     }
-    private void moveLeft()throws Exception{
+    protected void moveLeft()throws Exception{
         int y = getY();
         int x = getX();
         gameMap.data[y][x] = new Emptiness();
@@ -41,7 +42,7 @@ public abstract class AbstractMovingFigur extends AbstractFigur {
         gameMap.drawTable();
         Thread.sleep(600);
     }
-    private void moveRight()throws Exception{
+    protected void moveRight()throws Exception{
         int y = getY();
         int x = getX();
         gameMap.data[y][x] = new Emptiness();
