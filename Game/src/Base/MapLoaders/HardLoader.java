@@ -1,9 +1,9 @@
 package Base.MapLoaders;
 
-public class HardLoader {
+public class HardLoader implements Loader {
     static String[] array = {"N","N","N","N","GG","M","M","N","N","N"};
-    static int goldCount = 5;
-    static int botCount = 10;
+    static short goldCount = 5;
+    static short botCount = 10;
     public static String[] getArray() {
         return array;
     }

@@ -3,11 +3,18 @@ package Base.Objects;
 import javax.swing.*;
 
 public class Player extends AbstractMovingFigur{
-    int score = 0;
-    int countSteps = 50;
-    public Player(){
+    private static Player instance;
+    private Player(){
         setImage(new ImageIcon(getClass().getResource("/images/goldman_up.png")));
     }
+    public static Player getPlayer(){
+        if(instance == null){
+            instance = new Player();
+        }
+        return instance;
+    }
+    int score = 0;
+    int countSteps = 50;
 
     public int getScore() {
         return score;
@@ -16,6 +23,7 @@ public class Player extends AbstractMovingFigur{
     public int getCountSteps() {
         return countSteps;
     }
+
     @Override
     protected void moveUp() throws Exception{
         int y = getY();

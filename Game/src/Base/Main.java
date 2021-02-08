@@ -1,16 +1,14 @@
 
-
 package Base;
 
-import Base.MapLoaders.EasyLoader;
 import Base.MapLoaders.HardLoader;
 import Base.Objects.AbstractFigur;
 import Base.Objects.*;
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import java.awt.*;
+import java.util.Arrays;
 import java.util.Random;
 
 public class Main extends JPanel {
@@ -21,7 +19,6 @@ public class Main extends JPanel {
 
     private String gameStatus = "Play game";
 
-    // B - Brick, M- Monster, GG - Gold, P - Player, G - Ground, E - Exit
     public AbstractFigur[][] data = {
             {new Emptiness(), new Emptiness(), new Wall(), new Emptiness(), new Emptiness(), new Wall(), new Emptiness(), new Emptiness(), new Emptiness(), new Emptiness(), new Emptiness()},
             {new Wall(), new Emptiness(), new Wall(), new Emptiness(), new Emptiness(), new Wall(), new Emptiness(), new Emptiness(), new Emptiness(), new Emptiness(), new Wall()},
@@ -38,12 +35,11 @@ public class Main extends JPanel {
     };
 
     {
-        loading(HardLoader.getArray(), HardLoader.getBotCount(),HardLoader.getGoldCount());
+        loading(HardLoader.getArray(), HardLoader.getBotCount(), HardLoader.getGoldCount());
     }
 
-    public AbstractFigur[][] loading(String[] array, int botCount, int goldCount){
-
-        AbstractFigur exit = new Exit();
+    public void loading(String[] array, int botCount, int goldCount){
+        AbstractFigur exit = Exit.getExit();
         Random random = new Random();
         int exitIndexX = random.nextInt(12);
         int exitIndexY = random.nextInt(11);
@@ -75,14 +71,13 @@ public class Main extends JPanel {
         }
         int playerX = 5;
         int playerY = 6;
-        player = new Player();
+        player = Player.getPlayer();
         player.setGameMap(this);
         player.setX(playerX);
         player.setY(playerY);
 
         data[playerY][playerX] = player;
 
-        return data;
 
 
 
@@ -141,9 +136,7 @@ public class Main extends JPanel {
         table.setVerifyInputWhenFocusTarget(false);
 
 
-        for (int i = 0; i < column.length; i++) {
-            column[i] = "";
-        }
+        Arrays.fill(column, "");
 
         drawTable();
 

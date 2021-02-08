@@ -1,10 +1,9 @@
 package Base.MapLoaders;
 
-public abstract class Loader {
-    static String[] array;
-    static int goldCount;
-    static int botCount;
-
+public interface Loader {
+    static String[] array = {"N","N","N","N","N","N","N","N","N","N","N"};
+    static short goldCount = 0;
+    static short botCount = 0;
     public static String[] getArray() {
         return array;
     }

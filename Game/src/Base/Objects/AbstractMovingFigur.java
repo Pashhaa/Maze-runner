@@ -5,7 +5,6 @@ import Base.Main;
 public abstract class AbstractMovingFigur extends AbstractFigur {
 
     protected Main gameMap;
-    private Gold gold;
 
 
     public void setGameMap(Main gameMap) {
@@ -61,7 +60,7 @@ public abstract class AbstractMovingFigur extends AbstractFigur {
     public void move(int direction) throws Exception{
 
         if(direction == 1){
-            if(gameMap.data[y - 1][x].getClass() == Emptiness.class || gameMap.data[y - 1][x].getClass() == Gold.class  ){
+            if(gameMap.data[getY() - 1][getX()].getClass() == Emptiness.class || gameMap.data[getY() - 1][getX()].getClass() == Gold.class  ){
                 moveUp();
             }
             else {
@@ -69,7 +68,7 @@ public abstract class AbstractMovingFigur extends AbstractFigur {
             }
         }
         if(direction == 2){
-            if(gameMap.data[y + 1][x].getClass() == Emptiness.class || gameMap.data[y + 1][x].getClass() == Gold.class ){
+            if(gameMap.data[getY() + 1][getX()].getClass() == Emptiness.class || gameMap.data[getY() + 1][getX()].getClass() == Gold.class ){
                 moveDown();
             }
             else {
@@ -77,7 +76,7 @@ public abstract class AbstractMovingFigur extends AbstractFigur {
             }
         }
         if(direction == 3){
-            if(gameMap.data[y][x - 1].getClass() == Emptiness.class || gameMap.data[y][x - 1].getClass() == Gold.class ){
+            if(gameMap.data[getY()][getX() - 1].getClass() == Emptiness.class || gameMap.data[getY()][getX() - 1].getClass() == Gold.class ){
                 moveLeft();
             }
             else {
@@ -85,7 +84,7 @@ public abstract class AbstractMovingFigur extends AbstractFigur {
             }
         }
         if(direction == 4){
-            if(gameMap.data[y][x + 1].getClass() == Emptiness.class || gameMap.data[y][x + 1].getClass() == Gold.class ){
+            if(gameMap.data[getY()][getX() + 1].getClass() == Emptiness.class || gameMap.data[getY()][getX() + 1].getClass() == Gold.class ){
                 moveRight();
             }
             else {
