@@ -1,5 +1,5 @@
 package Base.Objects;
 
-public class Emptiness extends AbstractFigur{
+public class Emptiness extends AbstractFigur {
 
 }

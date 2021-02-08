@@ -7,7 +7,6 @@ public abstract class AbstractMovingFigur extends AbstractFigur {
     private Main gameMap;
 
 
-
     public void setGameMap(Main gameMap) {
         this.gameMap = gameMap;
     }

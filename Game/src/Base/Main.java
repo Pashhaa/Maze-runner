@@ -2,16 +2,15 @@
 
 package Base;
 
-
+import Base.MapLoaders.EasyLoader;
+import Base.Objects.AbstractFigur;
 import Base.Objects.*;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.Random;
-import java.util.Scanner;
 
 public class Main extends JPanel {
 
@@ -19,9 +18,8 @@ public class Main extends JPanel {
     final int HEIGHT = 576;
     public Player player;
 
+    private String gameStatus = "Play game";
 
-
-    String gameStatus = "Play Game";
     // B - Brick, M- Monster, GG - Gold, P - Player, G - Ground, E - Exit
     public AbstractFigur[][] data = {
             {new Emptiness(), new Emptiness(), new Wall(), new Emptiness(), new Emptiness(), new Wall(), new Emptiness(), new Emptiness(), new Emptiness(), new Emptiness(), new Emptiness()},
@@ -38,20 +36,17 @@ public class Main extends JPanel {
             {new Emptiness(), new Emptiness(), new Emptiness(), new Emptiness(), new Wall(), new Emptiness(), new Emptiness(), new Emptiness(), new Emptiness(), new Emptiness(), new Emptiness()}
     };
 
-    public ArrayList<AbstractMovingFigur> abstractMovingFigurList = new ArrayList<>();
     {
-        RandomBotLoader();
+        loading(EasyLoader.getArray(), EasyLoader.getBotCount(),EasyLoader.getGoldCount());
     }
 
-    private AbstractFigur[][] RandomBotLoader(){
+    public AbstractFigur[][] loading(String[] array, int botCount, int goldCount){
+
         AbstractFigur exit = new Exit();
         Random random = new Random();
         int exitIndexX = random.nextInt(12);
         int exitIndexY = random.nextInt(11);
         data[exitIndexY][exitIndexX] = exit;
-        String[] array = {"N","N","N","N","M","GG","E", "N", "N","N","N","N"};
-        int goldCount = 8;
-        int botCount = 5;
         for (int i = 0; i < data.length; i++) {
             for (int j = 0; j < data[i].length; j++) {
                 int elemIndex = random.nextInt(array.length);
@@ -60,7 +55,6 @@ public class Main extends JPanel {
                     if (array[elemIndex].equals("M") && botCount > 0){
                         arrayValue = new Bot();
                         ((AbstractMovingFigur)arrayValue).setGameMap(this);
-                        abstractMovingFigurList.add((AbstractMovingFigur) arrayValue);
                         botCount--;
                     }
                     else if(array[elemIndex].equals("GG") && goldCount > 0){
@@ -81,7 +75,6 @@ public class Main extends JPanel {
         int playerX = 5;
         int playerY = 6;
         player = new Player();
-        abstractMovingFigurList.add(player);
         player.setGameMap(this);
         player.setX(playerX);
         player.setY(playerY);
@@ -98,15 +91,7 @@ public class Main extends JPanel {
 
 
     void runTheGame() throws Exception {
-        for ( AbstractFigur current: abstractMovingFigurList ) {
-            if(current.getY() < 11){
-                AbstractMovingFigur movingFigur = (AbstractMovingFigur) current;
-                movingFigur.move(2);
-            }
-        }
-        while (player.getY()>0){
-            player.move(1);
-        }
+        player.move(1);
         gameStatus = "Game Over";
         drawTable();
     }
