@@ -1,13 +1,14 @@
 
 package Base;
 
-import Base.MapLoaders.HardLoader;
+import Base.MapLoaders.EasyLoader;
 import Base.Objects.AbstractFigur;
 import Base.Objects.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import java.awt.*;
+import java.io.*;
 import java.util.Arrays;
 import java.util.Random;
 
@@ -15,13 +16,13 @@ public class Main extends JPanel {
 
     final int WIDTH = 576;
     final int HEIGHT = 576;
-    public Player player;
+    public Player player = new Player();
 
     private String gameStatus = "Play game";
 
     public AbstractFigur[][] data = {
-            {new Emptiness(), new Emptiness(), new Wall(), new Emptiness(), new Wall(), new Wall(), new Emptiness(), new Emptiness(), new Emptiness(), new Emptiness(), new Emptiness()},
-            {new Wall(), new Emptiness(), new Wall(), new Emptiness(), new Emptiness(), new Wall(), new Emptiness(), new Wall(), new Emptiness(), new Wall(), new Wall()},
+            {new Emptiness(), new Emptiness(), new Wall(), new Emptiness(), new Emptiness(), new Wall(), new Emptiness(), new Emptiness(), new Emptiness(), new Emptiness(), new Emptiness()},
+            {new Wall(), new Emptiness(), new Wall(), new Emptiness(), new Emptiness(), new Wall(), new Emptiness(), new Emptiness(), new Emptiness(), new Emptiness(), new Wall()},
             {new Wall(), new Emptiness(), new Wall(), new Emptiness(), new Emptiness(), new Emptiness(), new Wall(), new Emptiness(), new Emptiness(), new Wall(), new Emptiness()},
             {new Wall(), new Wall(), new Emptiness(), new Emptiness(), new Emptiness(), new Emptiness(), new Emptiness(), new Emptiness(), new Emptiness(), new Wall(), new Emptiness()},
             {new Emptiness(), new Wall(), new Wall(), new Emptiness(), new Emptiness(), new Emptiness(), new Wall(), new Emptiness(), new Emptiness(), new Emptiness(), new Emptiness()},
@@ -31,18 +32,18 @@ public class Main extends JPanel {
             {new Emptiness(),new Emptiness(), new Emptiness(), new Emptiness(),new Wall(), new Emptiness(), new Emptiness(), new Emptiness(), new Wall(), new Emptiness(), new Emptiness()},
             {new Emptiness(), new Wall(), new Emptiness(), new Emptiness(), new Wall(), new Emptiness(), new Emptiness(), new Emptiness(), new Wall(), new Emptiness(), new Wall()},
             {new Emptiness(), new Emptiness(), new Emptiness(), new Emptiness(), new Wall(), new Emptiness(), new Emptiness(), new Emptiness(), new Wall(), new Emptiness(), new Emptiness()},
-            {new Wall(), new Emptiness(), new Emptiness(), new Emptiness(), new Wall(), new Emptiness(), new Emptiness(), new Emptiness(), new Emptiness(), new Emptiness(), new Emptiness()}
+            {new Emptiness(), new Emptiness(), new Emptiness(), new Emptiness(), new Wall(), new Emptiness(), new Emptiness(), new Emptiness(), new Emptiness(), new Emptiness(), new Emptiness()}
     };
 
     {
-        loading(HardLoader.getArray(), HardLoader.getBotCount(), HardLoader.getGoldCount());
+        loading(EasyLoader.getArray(), EasyLoader.getBotCount(), EasyLoader.getGoldCount());
     }
 
     public void loading(String[] array, int botCount, int goldCount){
         AbstractFigur exit = Exit.getExit();
         Random random = new Random();
-        int exitIndexX = random.nextInt(12);
-        int exitIndexY = random.nextInt(11);
+        int exitIndexX = random.nextInt(11);
+        int exitIndexY = random.nextInt(10);
         data[exitIndexY][exitIndexX] = exit;
         for (int i = 0; i < data.length; i++) {
             for (int j = 0; j < data[i].length; j++) {
@@ -71,7 +72,6 @@ public class Main extends JPanel {
         }
         int playerX = 5;
         int playerY = 6;
-        player = Player.getPlayer();
         player.setGameMap(this);
         player.setX(playerX);
         player.setY(playerY);
@@ -93,8 +93,8 @@ public class Main extends JPanel {
         player.move(1);
         player.move(1);
         player.move(1);
-        lastTime = System.currentTimeMillis();
         gameStatus = "Game Over";
+        lastTime = System.currentTimeMillis();
         time = timeout(firstTime, lastTime);
         drawTable();
     }
@@ -102,7 +102,6 @@ public class Main extends JPanel {
         double localTime = lastTime - firstTime;
         return localTime/1000;
     }
-
 
 
 
@@ -118,6 +117,7 @@ public class Main extends JPanel {
     JLabel labelSteps = new JLabel();
     JLabel labelTime = new JLabel();
     JLabel labelGameStatus = new JLabel();
+    JLabel labelBestScore = new JLabel();
 
 
     public Main() {
@@ -165,6 +165,8 @@ public class Main extends JPanel {
     private void gameStatus() {
         labelGameStatus.setText(gameStatus);
     }
+
+
 
     public void drawTable() {
 

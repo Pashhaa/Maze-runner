@@ -1,20 +1,17 @@
 package Base.Objects;
 
 import javax.swing.*;
+import java.io.Serializable;
 
-public class Player extends AbstractMovingFigur{
-    private static Player instance;
-    private Player(){
+public class Player extends AbstractMovingFigur implements Serializable { ;
+    int score = 0;
+    transient int countSteps = 50;
+
+
+    public Player(){
         setImage(new ImageIcon(getClass().getResource("/images/goldman_up.png")));
     }
-    public static Player getPlayer(){
-        if(instance == null){
-            instance = new Player();
-        }
-        return instance;
-    }
-    int score = 0;
-    int countSteps = 50;
+
 
     public int getScore() {
         return score;
