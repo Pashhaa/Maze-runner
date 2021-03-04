@@ -1,6 +1,6 @@
 package Base.MapLoaders;
 
-public class HardLoader implements Loader {
+public class HardLoader{
     static String[] array = {"N","N","N","N","GG","M","M","N","N","N"};
     static short goldCount = 5;
     static short botCount = 10;

@@ -1,6 +1,6 @@
 package Base.MapLoaders;
 
-public class MediumLoader implements Loader{
+public class MediumLoader{
     static String[] array = {"N","N","N","N","N","GG","E", "M","N","N","N"};
     static short goldCount = 8;
     static short botCount = 5;

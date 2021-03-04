@@ -8,6 +8,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.io.*;
 import java.util.Arrays;
 import java.util.Random;
@@ -93,15 +94,20 @@ public class Main extends JPanel {
         player.move(1);
         player.move(1);
         player.move(1);
+        player.move(3);
+        player.move(2);
         gameStatus = "Game Over";
         lastTime = System.currentTimeMillis();
-        time = timeout(firstTime, lastTime);
+        time = timer(firstTime, lastTime);
         drawTable();
     }
-    public double timeout(long firstTime, long lastTime){
+    private double timer(long firstTime, long lastTime){
         double localTime = lastTime - firstTime;
         return localTime/1000;
     }
+
+
+
 
 
 
@@ -117,7 +123,6 @@ public class Main extends JPanel {
     JLabel labelSteps = new JLabel();
     JLabel labelTime = new JLabel();
     JLabel labelGameStatus = new JLabel();
-    JLabel labelBestScore = new JLabel();
 
 
     public Main() {
@@ -154,6 +159,7 @@ public class Main extends JPanel {
     private void score() {
         labelScore.setText("Score: " + player.getScore());
     }
+
     private void time(){
         labelTime.setText("Time: " + time + " seconds") ;
     }
@@ -165,6 +171,7 @@ public class Main extends JPanel {
     private void gameStatus() {
         labelGameStatus.setText(gameStatus);
     }
+
 
 
 
