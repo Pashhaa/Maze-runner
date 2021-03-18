@@ -1,12 +1,15 @@
 package Base.MapLoaders;
 
-import Base.Main;
+import Base.GameMap;
 import Base.Objects.*;
 
 import java.util.Random;
 
 public class MediumLoader implements Loader{
-    public void loading(AbstractFigur data[][] , Player player, Main map){
+
+
+    @Override
+    public AbstractFigur[][] loading(AbstractFigur data[][] , Player player, GameMap map){
         String[] array = {"N","N","N","N","N","GG","E", "M","N","N","N"};
         short goldCount = 8;
         short botCount = 5;
@@ -22,7 +25,6 @@ public class MediumLoader implements Loader{
                     AbstractFigur arrayValue;
                     if (array[elemIndex].equals("M") && botCount > 0){
                         arrayValue = new Bot();
-                        ((AbstractMovingFigur)arrayValue).setGameMap(map);
                         botCount--;
                     }
                     else if(array[elemIndex].equals("GG") && goldCount > 0){
@@ -42,13 +44,13 @@ public class MediumLoader implements Loader{
         }
         int playerX = 5;
         int playerY = 6;
-        player.setGameMap(map);
+        player = new Player();
         player.setX(playerX);
         player.setY(playerY);
 
         data[playerY][playerX] = player;
 
-
+        return data;
 
 
     }

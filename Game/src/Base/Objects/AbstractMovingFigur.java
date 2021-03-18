@@ -1,22 +1,52 @@
 package Base.Objects;
 
-import Base.Main;
+import Base.Collection.ArrayCollection;
+import Base.Collection.GameCollection;
+import Base.GameMap;
 
 public abstract class AbstractMovingFigur extends AbstractFigur {
 
-    protected Main gameMap;
 
-
-    public void setGameMap(Main gameMap) {
-        this.gameMap = gameMap;
+    public boolean canMove(AbstractFigur nextObject) {
+        return false;
     }
 
-    protected void moveUp() throws Exception{
+    public int[] move(int direction) {
+
         int y = getY();
         int x = getX();
-        gameMap.data[y][x] = new Emptiness();
+
+        switch (direction) {
+            case 1: {
+                y--;
+                break;
+            }
+            case 2:{
+                y++;
+                break;
+            }
+            case 3:{
+                x--;
+                break;
+            }
+            case 4:{
+                x++;
+                break;
+            }
+
+
+        }
+
+        return new int[] {y, x};
+
+    }
+
+/*    protected void moveUp() throws Exception{
+        int y = getY();
+        int x = getX();
+        data.getData()[y][x] = new Emptiness();
         y--;
-        gameMap.data[y][x] = this;
+        data.getData()[y][x] = this;
         setY(y);
         gameMap.drawTable();
         Thread.sleep(600);
@@ -24,9 +54,9 @@ public abstract class AbstractMovingFigur extends AbstractFigur {
     protected void moveDown()throws Exception{
         int y = getY();
         int x = getX();
-        gameMap.data[y][x] = new Emptiness();
+        data.getData()[y][x] = new Emptiness();
         y++;
-        gameMap.data[y][x] = this;
+        data.getData()[y][x] = this;
         setY(y);
         gameMap.drawTable();
         Thread.sleep(600);
@@ -34,9 +64,9 @@ public abstract class AbstractMovingFigur extends AbstractFigur {
     protected void moveLeft()throws Exception{
         int y = getY();
         int x = getX();
-        gameMap.data[y][x] = new Emptiness();
+        data.getData()[y][x] = new Emptiness();
         x--;
-        gameMap.data[y][x] = this;
+        data.getData()[y][x] = this;
         setX(x);
         gameMap.drawTable();
         Thread.sleep(600);
@@ -44,9 +74,9 @@ public abstract class AbstractMovingFigur extends AbstractFigur {
     protected void moveRight()throws Exception{
         int y = getY();
         int x = getX();
-        gameMap.data[y][x] = new Emptiness();
+        data.getData()[y][x] = new Emptiness();
         x++;
-        gameMap.data[y][x] = this;
+        data.getData()[y][x] = this;
         gameMap.drawTable();
         setX(x);
         Thread.sleep(600);
@@ -57,40 +87,41 @@ public abstract class AbstractMovingFigur extends AbstractFigur {
 
 
     // direction VALUE (1 - UP, 2 - DOWN, 3 - LEFT, 4 - RIGHT
-    public void move(int direction) throws Exception{
+    public int[] move(int direction) throws Exception{
 
         if(direction == 1){
-            if(gameMap.data[getY() - 1][getX()].getClass() == Emptiness.class || gameMap.data[getY() - 1][getX()].getClass() == Gold.class  ){
+            if(data.getData()[getY() - 1][getX()].getClass() == Emptiness.class || data.getData()[getY() - 1][getX()].getClass() == Gold.class  ){
                 moveUp();
             }
             else {
-                return;
+                return new int[0];
             }
         }
         if(direction == 2){
-            if(gameMap.data[getY() + 1][getX()].getClass() == Emptiness.class || gameMap.data[getY() + 1][getX()].getClass() == Gold.class ){
+            if(data.getData()[getY() + 1][getX()].getClass() == Emptiness.class || data.getData()[getY() + 1][getX()].getClass() == Gold.class ){
                 moveDown();
             }
             else {
-                return;
+                return new int[0];
             }
         }
         if(direction == 3){
-            if(gameMap.data[getY()][getX() - 1].getClass() == Emptiness.class || gameMap.data[getY()][getX() - 1].getClass() == Gold.class ){
+            if(data.getData()[getY()][getX() - 1].getClass() == Emptiness.class || data.getData()[getY()][getX() - 1].getClass() == Gold.class ){
                 moveLeft();
             }
             else {
-                return;
+                return new int[0];
             }
         }
         if(direction == 4){
-            if(gameMap.data[getY()][getX() + 1].getClass() == Emptiness.class || gameMap.data[getY()][getX() + 1].getClass() == Gold.class ){
+            if(data.getData()[getY()][getX() + 1].getClass() == Emptiness.class || data.getData()[getY()][getX() + 1].getClass() == Gold.class ){
                 moveRight();
             }
             else {
-                return;
+                return new int[0];
             }
         }
 
-    }
+        return new int[] {getX(),getY()};
+    }*/
 }

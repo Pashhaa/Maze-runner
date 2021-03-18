@@ -22,59 +22,8 @@ public class Player extends AbstractMovingFigur implements Serializable { ;
     }
 
     @Override
-    protected void moveUp() throws Exception{
-        int y = getY();
-        int x = getX();
-        if(gameMap.data[y-1][x].getClass() == new Gold().getClass()) {
-            score += 5;
-        }
-        gameMap.data[y][x] = new Emptiness();
-        y--;
-        gameMap.data[y][x] = this;
-        setY(y);
-        gameMap.drawTable();
-        Thread.sleep(600);
+    public boolean canMove(AbstractFigur nextObject) {
+        return super.canMove(nextObject);
     }
-    @Override
-    protected void moveDown()throws Exception{
-        int y = getY();
-        int x = getX();
-        if(gameMap.data[y+1][x].getClass() == new Gold().getClass()) {
-            score += 5;
-        }
-        gameMap.data[y][x] = new Emptiness();
-        y++;
-        gameMap.data[y][x] = this;
-        setY(y);
-        gameMap.drawTable();
-        Thread.sleep(600);
-    }
-    @Override
-    protected void moveLeft()throws Exception{
-        int y = getY();
-        int x = getX();
-        if(gameMap.data[y][x-1].getClass() == new Gold().getClass()) {
-            score += 5;
-        }
-        gameMap.data[y][x] = new Emptiness();
-        x--;
-        gameMap.data[y][x] = this;
-        setX(x);
-        gameMap.drawTable();
-        Thread.sleep(600);
-    }
-    @Override
-    protected void moveRight()throws Exception{
-        int y = getY();
-        int x = getX();
-        if(gameMap.data[y][x+1].getClass() == new Gold().getClass()) {
-            score += 5;
-        }
-        gameMap.data[y][x] = new Emptiness();
-        x++;
-        gameMap.data[y][x] = this;
-        gameMap.drawTable();
-        setX(x);
-        Thread.sleep(600);
-    }
+
 }

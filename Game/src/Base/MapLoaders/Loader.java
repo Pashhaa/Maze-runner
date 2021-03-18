@@ -1,10 +1,8 @@
 package Base.MapLoaders;
 
-import Base.Main;
+import Base.GameMap;
 import Base.Objects.*;
 
-import java.util.Random;
-
 public interface Loader {
-    public void loading(AbstractFigur data[][], Player player, Main map);
+    public AbstractFigur[][] loading(AbstractFigur data[][], Player player, GameMap map);
 }
