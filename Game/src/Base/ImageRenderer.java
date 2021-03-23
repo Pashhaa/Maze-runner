@@ -1,6 +1,6 @@
 package Base;
 
-import Base.Objects.AbstractFigur;
+import Base.Objects.Abstracts.AbstractFigur;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;

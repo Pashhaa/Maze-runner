@@ -1,7 +1,8 @@
 package Base.MapLoaders;
 
 import Base.GameMap;
-import Base.Objects.*;
+import Base.Objects.Abstracts.AbstractFigur;
+import Base.Objects.Realization.*;
 
 import java.util.Random;
 

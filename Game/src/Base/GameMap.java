@@ -4,9 +4,8 @@ package Base;
 import Base.Collection.ArrayCollection;
 import Base.Collection.GameCollection;
 import Base.MapLoaders.EasyLoader;
-import Base.MapLoaders.Loader;
-import Base.MapLoaders.MediumLoader;
-import Base.Objects.*;
+import Base.Objects.Enums.Directions;
+import Base.Objects.Realization.Player;
 import Base.Observer.CollectionSubscriber;
 
 import javax.swing.*;
@@ -27,7 +26,8 @@ public class GameMap extends JPanel implements CollectionSubscriber {
     void runTheGame() throws Exception {
         firstTime = System.currentTimeMillis();
         for (int i = 0; i < 6; i++) {
-            collection.moveAllMovables(2);
+            collection.moveAllMovables(Directions.LEFT);
+            drawTable();
         }
         gameStatus = "Game Over";
         lastTime = System.currentTimeMillis();

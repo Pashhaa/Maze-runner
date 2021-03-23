@@ -2,7 +2,12 @@ package Base.Collection;
 
 import Base.GameMap;
 import Base.MapLoaders.Loader;
-import Base.Objects.*;
+import Base.Objects.Abstracts.AbstractFigur;
+import Base.Objects.Abstracts.AbstractMovingFigur;
+import Base.Objects.Enums.Directions;
+import Base.Objects.Realization.Emptiness;
+import Base.Objects.Realization.Player;
+import Base.Objects.Realization.Wall;
 import Base.Observer.CollectionPublisherImpl;
 
 import java.util.ArrayList;
@@ -73,7 +78,7 @@ public class ArrayCollection extends CollectionPublisherImpl {
     }
 
     @Override
-    public void moveAllMovables(int direction) throws Exception {
+    public void moveAllMovables(Directions direction) throws Exception {
 
         for (int i = 0; i < movingObjects.size(); i++) {
             AbstractMovingFigur movingObject =  movingObjects.get(i);
