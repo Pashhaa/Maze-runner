@@ -4,9 +4,10 @@ package Base;
 import Base.Collection.ArrayCollection;
 import Base.Collection.GameCollection;
 import Base.MapLoaders.EasyLoader;
-import Base.Objects.Enums.Directions;
-import Base.Objects.Realization.Player;
+import Base.Objects.Enums.Direction;
 import Base.Observer.CollectionSubscriber;
+import Base.Objects.Realization.*;
+
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -26,7 +27,7 @@ public class GameMap extends JPanel implements CollectionSubscriber {
     void runTheGame() throws Exception {
         firstTime = System.currentTimeMillis();
         for (int i = 0; i < 6; i++) {
-            collection.moveAllMovables(Directions.LEFT);
+            collection.moveAllMovables(Direction.LEFT);
             drawTable();
         }
         gameStatus = "Game Over";
@@ -88,16 +89,16 @@ public class GameMap extends JPanel implements CollectionSubscriber {
         frame.setVisible(true);
     }
 
-    private void score() {
-        labelScore.setText("Score: " + player.getScore());
+    private void score(int score) {
+        labelScore.setText("Score: " + score);
     }
 
     private void time(){
         labelTime.setText("Time: " + time + " seconds") ;
     }
 
-    private void countSteps() {
-        labelSteps.setText("Counter: " + player.getCountSteps());
+    private void countSteps(int countSteps) {
+        labelSteps.setText("Counter: " + countSteps);
     }
 
     private void gameStatus() {
@@ -118,13 +119,15 @@ public class GameMap extends JPanel implements CollectionSubscriber {
             a.setPreferredWidth(26);
         }
         gameStatus();
-        score();
         time();
-        countSteps();
     }
 
     @Override
     public void notifyFromListener() {
+
+        Player player = collection.getPlayer();
+        score(player.getScore());
+        countSteps(player.getCountSteps());
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {

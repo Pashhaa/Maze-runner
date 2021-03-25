@@ -2,7 +2,7 @@ package Base.Collection;
 
 
 import Base.Objects.Abstracts.AbstractFigur;
-import Base.Objects.Enums.Directions;
+import Base.Objects.Enums.Direction;
 import Base.Objects.Realization.Player;
 import Base.Observer.CollectionPublisher;
 
@@ -15,5 +15,5 @@ public interface GameCollection extends CollectionPublisher {
 
     Player getPlayer();
 
-    void moveAllMovables(Directions direction) throws Exception;
+    void moveAllMovables(Direction direction) throws Exception;
 }

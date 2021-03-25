@@ -2,6 +2,8 @@ package Base.Objects.Realization;
 
 import Base.Objects.Abstracts.AbstractFigur;
 import Base.Objects.Abstracts.AbstractMovingFigur;
+import Base.Objects.Enums.Action;
+import Base.Objects.Enums.ObjectType;
 
 import javax.swing.*;
 import java.io.Serializable;
@@ -13,6 +15,7 @@ public class Player extends AbstractMovingFigur implements Serializable { ;
 
     public Player(){
         setImage(new ImageIcon(getClass().getResource("/images/goldman_up.png")));
+        setObjectType(ObjectType.PLAYER);
     }
 
 
@@ -25,13 +28,24 @@ public class Player extends AbstractMovingFigur implements Serializable { ;
     }
 
     @Override
-    public boolean canMove(AbstractFigur nextObject) {
-        boolean result = super.canMove(nextObject);
-        if(result){
-            return  result;
+    public Action process(AbstractFigur nextObject) {
+        Action result = super.process(nextObject);
+
+        if(result != Action.NONE){
+            countSteps--;
+            return Action.MOVE;
         }
-        return nextObject != null &&
-                nextObject.getClass() == Gold.class || nextObject.getClass() == Emptiness.class;
+        if(nextObject == null){
+            return Action.NONE;
+        }
+        if(nextObject.getObjectType() == ObjectType.GOLD){
+            score += 5;
+            return Action.ADD_GOLD;
+        }
+        if(nextObject.getObjectType() == ObjectType.EXIT){
+            return Action.WIN;
+        }
+        return Action.NONE;
     }
 
 }

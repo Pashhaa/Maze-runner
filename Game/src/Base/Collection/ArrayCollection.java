@@ -4,7 +4,8 @@ import Base.GameMap;
 import Base.MapLoaders.Loader;
 import Base.Objects.Abstracts.AbstractFigur;
 import Base.Objects.Abstracts.AbstractMovingFigur;
-import Base.Objects.Enums.Directions;
+import Base.Objects.Enums.Action;
+import Base.Objects.Enums.Direction;
 import Base.Objects.Realization.Emptiness;
 import Base.Objects.Realization.Player;
 import Base.Objects.Realization.Wall;
@@ -78,16 +79,20 @@ public class ArrayCollection extends CollectionPublisherImpl {
     }
 
     @Override
-    public void moveAllMovables(Directions direction) throws Exception {
+    public void moveAllMovables(Direction direction) throws Exception {
 
         for (int i = 0; i < movingObjects.size(); i++) {
             AbstractMovingFigur movingObject =  movingObjects.get(i);
             int[] nextCoord = movingObject.move(direction);
             int y = nextCoord[0];
             int x = nextCoord[1];
-            AbstractFigur nextObject = getFigurByCoordinate(x,y);
+            AbstractFigur nextObject = getFigurByCoordinate(y,x);
 
-            if (movingObject.canMove(nextObject)) {
+            Action action = movingObject.process(nextObject);
+            switch (action){
+                case ADD_GOLD:
+                case BOT_GOLD:
+                case MOVE:
                 setObjectByCoordinate(movingObject.getY(), movingObject.getX(), new Emptiness());
                 setObjectByCoordinate(y, x, movingObject);
             }
