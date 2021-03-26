@@ -5,6 +5,7 @@ import Base.Collection.ArrayCollection;
 import Base.Collection.GameCollection;
 import Base.MapLoaders.EasyLoader;
 import Base.Objects.Enums.Direction;
+import Base.Objects.Enums.ObjectType;
 import Base.Observer.CollectionSubscriber;
 import Base.Objects.Realization.*;
 
@@ -27,7 +28,7 @@ public class GameMap extends JPanel implements CollectionSubscriber {
     void runTheGame() throws Exception {
         firstTime = System.currentTimeMillis();
         for (int i = 0; i < 6; i++) {
-            collection.moveAllMovables(Direction.LEFT);
+            collection.moveMovableFigur(ObjectType.BOT, Direction.LEFT);
             drawTable();
         }
         gameStatus = "Game Over";

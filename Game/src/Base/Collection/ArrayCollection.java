@@ -6,6 +6,7 @@ import Base.Objects.Abstracts.AbstractFigur;
 import Base.Objects.Abstracts.AbstractMovingFigur;
 import Base.Objects.Enums.Action;
 import Base.Objects.Enums.Direction;
+import Base.Objects.Enums.ObjectType;
 import Base.Objects.Realization.Emptiness;
 import Base.Objects.Realization.Player;
 import Base.Objects.Realization.Wall;
@@ -29,7 +30,7 @@ public class ArrayCollection extends CollectionPublisherImpl {
             {new Emptiness(), new Emptiness(), new Emptiness(), new Emptiness(), new Wall(), new Emptiness(), new Emptiness(), new Emptiness(), new Wall(), new Emptiness(), new Emptiness()},
             {new Emptiness(), new Emptiness(), new Emptiness(), new Emptiness(), new Wall(), new Emptiness(), new Emptiness(), new Emptiness(), new Emptiness(), new Emptiness(), new Emptiness()}
     };
-    private List<AbstractMovingFigur> movingObjects = new ArrayList<>();
+    private final List<AbstractMovingFigur> movingObjects = new ArrayList<>();
     private Player player = new Player();
 
     public ArrayCollection(Loader loader, GameMap map) {
@@ -79,22 +80,28 @@ public class ArrayCollection extends CollectionPublisherImpl {
     }
 
     @Override
-    public void moveAllMovables(Direction direction) throws Exception {
+    public void moveMovableFigur(ObjectType type, Direction direction) {
 
         for (int i = 0; i < movingObjects.size(); i++) {
             AbstractMovingFigur movingObject =  movingObjects.get(i);
-            int[] nextCoord = movingObject.move(direction);
-            int y = nextCoord[0];
-            int x = nextCoord[1];
-            AbstractFigur nextObject = getFigurByCoordinate(y,x);
 
-            Action action = movingObject.process(nextObject);
-            switch (action){
-                case ADD_GOLD:
-                case BOT_GOLD:
-                case MOVE:
-                setObjectByCoordinate(movingObject.getY(), movingObject.getX(), new Emptiness());
-                setObjectByCoordinate(y, x, movingObject);
+            if(movingObject.getObjectType() == type) {
+                int[] nextCoord = movingObject.move(direction);
+                int y = nextCoord[0];
+                int x = nextCoord[1];
+                AbstractFigur nextObject = getFigurByCoordinate(y, x);
+
+                Action action = movingObject.process(nextObject);
+
+                AbstractFigur swapedFigur = new Emptiness();
+                switch (action) {
+                    case ADD_GOLD:
+                    case BOT_GOLD:
+                        swapedFigur = nextObject;
+                    case MOVE:
+                        setObjectByCoordinate(movingObject.getY(), movingObject.getX(), swapedFigur);
+                        setObjectByCoordinate(y, x, movingObject);
+                }
             }
 
         }

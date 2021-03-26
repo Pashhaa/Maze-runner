@@ -10,7 +10,7 @@ import java.io.Serializable;
 
 public class Player extends AbstractMovingFigur implements Serializable { ;
     int score = 0;
-    transient int countSteps = 50;
+    int countSteps = 50;
 
 
     public Player(){
@@ -33,17 +33,17 @@ public class Player extends AbstractMovingFigur implements Serializable { ;
 
         if(result != Action.NONE){
             countSteps--;
-            return Action.MOVE;
+            return result;
         }
         if(nextObject == null){
             return Action.NONE;
         }
+        if(nextObject.getObjectType() == ObjectType.EXIT){
+            return Action.WIN;
+        }
         if(nextObject.getObjectType() == ObjectType.GOLD){
             score += 5;
             return Action.ADD_GOLD;
-        }
-        if(nextObject.getObjectType() == ObjectType.EXIT){
-            return Action.WIN;
         }
         return Action.NONE;
     }
