@@ -22,7 +22,10 @@ public class Bot extends AbstractMovingFigur {
         if(nextObject.getObjectType() == ObjectType.PLAYER){
             return Action.LOSE;
         }
-        return Action.NONE;
+        if (nextObject.getObjectType() == ObjectType.GOLD){
+            return Action.BOT_GOLD;
+        }
+        return super.process(nextObject);
     }
 
 }
