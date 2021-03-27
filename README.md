@@ -1,5 +1,5 @@
 # Maze runner
-This is a game in which the player has to get to the exit by dodging monsters and collecting gold.\n
+This is a game in which the player has to get to the exit by dodging monsters and collecting gold.
 # Authors
 KOVAL MAKSYM - https://github.com/Maksolo27
 
