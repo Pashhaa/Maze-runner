@@ -9,7 +9,7 @@ import java.util.Random;
 public class HardLoader implements Loader {
 
     @Override
-    public AbstractFigur[][] loading(AbstractFigur [][] data, Player player, GameMap map){
+    public AbstractFigur[][] loading(AbstractFigur [][] data, Player player){
         final String[] array = {"N","N","N","N","GG","M","M","N","N","N"};
         short goldCount = 5;
         short botCount = 10;

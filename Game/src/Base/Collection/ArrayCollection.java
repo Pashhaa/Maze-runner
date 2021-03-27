@@ -33,8 +33,8 @@ public class ArrayCollection extends CollectionPublisherImpl {
     private final List<AbstractMovingFigur> movingObjects = new ArrayList<>();
     private Player player = new Player();
 
-    public ArrayCollection(Loader loader, GameMap map) {
-        data = loader.loading(this.data,player, map);
+    public ArrayCollection(Loader loader) {
+        data = loader.loading(this.data,player);
         initOthers();
     }
     private void initOthers() {

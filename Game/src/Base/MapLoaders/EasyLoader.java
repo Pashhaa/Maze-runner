@@ -10,7 +10,7 @@ public class EasyLoader implements Loader{
 
 
     @Override
-    public AbstractFigur[][] loading(AbstractFigur[][] data, Player player, GameMap map) {
+    public AbstractFigur[][] loading(AbstractFigur[][] data, Player player) {
             String[] array = {"N","N","N","N","GG","GG","E", "M","N","N","N"};
             short goldCount = 17;
             short botCount = 2;

@@ -28,7 +28,7 @@ public class GameMap extends JPanel implements CollectionSubscriber {
     void runTheGame() throws Exception {
         firstTime = System.currentTimeMillis();
         for (int i = 0; i < 6; i++) {
-            collection.moveMovableFigur(ObjectType.BOT, Direction.LEFT);
+            collection.moveMovableFigur(ObjectType.PLAYER, Direction.LEFT);
             drawTable();
         }
         gameStatus = "Game Over";
@@ -57,7 +57,7 @@ public class GameMap extends JPanel implements CollectionSubscriber {
     JLabel labelGameStatus = new JLabel();
 
     public GameMap() {
-        collection = new ArrayCollection(new EasyLoader(),this);
+        collection = new ArrayCollection(new EasyLoader());
 
         collection.addListener(this);
         JFrame frame = new JFrame("Maze run");

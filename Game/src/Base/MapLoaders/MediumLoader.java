@@ -10,7 +10,7 @@ public class MediumLoader implements Loader{
 
 
     @Override
-    public AbstractFigur[][] loading(AbstractFigur data[][] , Player player, GameMap map){
+    public AbstractFigur[][] loading(AbstractFigur data[][] , Player player){
         String[] array = {"N","N","N","N","N","GG","E", "M","N","N","N"};
         short goldCount = 8;
         short botCount = 5;
