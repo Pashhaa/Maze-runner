@@ -8,6 +8,7 @@ import Base.Objects.Enums.Direction;
 import Base.Objects.Enums.ObjectType;
 import Base.Observer.CollectionSubscriber;
 import Base.Objects.Realization.*;
+import Base.Strategy.RandomStrategy;
 
 
 import javax.swing.*;
@@ -28,7 +29,7 @@ public class GameMap extends JPanel implements CollectionSubscriber {
     void runTheGame() throws Exception {
         firstTime = System.currentTimeMillis();
         for (int i = 0; i < 6; i++) {
-            collection.moveMovableFigur(ObjectType.PLAYER, Direction.LEFT);
+            collection.moveMovableFigur(ObjectType.PLAYER, new RandomStrategy());
             drawTable();
         }
         gameStatus = "Game Over";

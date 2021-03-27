@@ -6,6 +6,7 @@ import Base.Objects.Enums.Direction;
 import Base.Objects.Enums.ObjectType;
 import Base.Objects.Realization.Player;
 import Base.Observer.CollectionPublisher;
+import Base.Strategy.MovingStrategy;
 
 public interface GameCollection extends CollectionPublisher {
     AbstractFigur[][] getData();
@@ -16,5 +17,7 @@ public interface GameCollection extends CollectionPublisher {
 
     Player getPlayer();
 
-    void moveMovableFigur(ObjectType type, Direction direction) ;
+    void moveMovableFigur(ObjectType type, Direction direction);
+
+    void moveMovableFigur(ObjectType type, MovingStrategy strategy);
 }
