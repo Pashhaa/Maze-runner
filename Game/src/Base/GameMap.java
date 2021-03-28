@@ -4,6 +4,7 @@ package Base;
 import Base.Collection.ArrayCollection;
 import Base.Collection.GameCollection;
 import Base.MapLoaders.EasyLoader;
+import Base.MapLoaders.HardLoader;
 import Base.Objects.Enums.Direction;
 import Base.Objects.Enums.ObjectType;
 import Base.Observer.CollectionSubscriber;
@@ -58,7 +59,7 @@ public class GameMap extends JPanel implements CollectionSubscriber {
     JLabel labelGameStatus = new JLabel();
 
     public GameMap() {
-        collection = new ArrayCollection(new EasyLoader());
+        collection = new ArrayCollection(new HardLoader());
 
         collection.addListener(this);
         JFrame frame = new JFrame("Maze runner");
@@ -131,7 +132,7 @@ public class GameMap extends JPanel implements CollectionSubscriber {
         score(player.getScore());
         countSteps(player.getCountSteps());
         try {
-            Thread.sleep(1000);
+            Thread.sleep(500);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
