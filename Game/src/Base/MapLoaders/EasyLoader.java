@@ -1,6 +1,5 @@
 package Base.MapLoaders;
 
-import Base.GameMap;
 import Base.Objects.Abstracts.AbstractFigur;
 import Base.Objects.Realization.*;
 

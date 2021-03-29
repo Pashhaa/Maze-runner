@@ -118,9 +118,11 @@ public class ArrayCollection extends CollectionPublisherImpl {
 
         AbstractFigur swapedFigur = new Emptiness();
         switch (action) {
-            case ADD_GOLD:
             case BOT_GOLD:
                 swapedFigur = nextObject;
+            case ADD_GOLD:
+            case LOSE:
+            case WIN:
             case MOVE:
                 setObjectByCoordinate(movingFigur.getY(), movingFigur.getX(), swapedFigur);
                 setObjectByCoordinate(y, x, movingFigur);
