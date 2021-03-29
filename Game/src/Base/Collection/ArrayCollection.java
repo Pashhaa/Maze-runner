@@ -71,9 +71,13 @@ public class ArrayCollection extends CollectionPublisherImpl {
 
     @Override
     public void setObjectByCoordinate(int y, int x, AbstractFigur object) {
-        object.setX(x);
-        object.setY(y);
-        data[y][x] = object;
+        try {
+            object.setX(x);
+            object.setY(y);
+            data[y][x] = object;
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -121,10 +125,14 @@ public class ArrayCollection extends CollectionPublisherImpl {
         switch (action) {
             case LOSE:
                 movingObjects.remove(player);
+                if(movingFigur.getObjectType() == ObjectType.PLAYER){
+                    data[player.getY()][player.getX()] = new Emptiness();
+                    movingFigur = null;
+                }
+                nextObject = new Emptiness();
             case BOT_GOLD:
                 swapedFigur = nextObject;
             case ADD_GOLD:
-
             case WIN:
             case MOVE:
                 setObjectByCoordinate(movingFigur.getY(), movingFigur.getX(), swapedFigur);
