@@ -121,11 +121,6 @@ public class GameMap extends JPanel implements CollectionSubscriber, KeyListener
         Player player = collection.getPlayer();
         score(player.getScore());
         countSteps(player.getCountSteps());
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
 
         drawTable();
     }

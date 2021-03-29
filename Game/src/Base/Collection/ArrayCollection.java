@@ -14,6 +14,7 @@ import Base.Strategy.MovingStrategy;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class ArrayCollection extends CollectionPublisherImpl {
     AbstractFigur[][] data = {
@@ -30,7 +31,7 @@ public class ArrayCollection extends CollectionPublisherImpl {
             {new Emptiness(), new Emptiness(), new Emptiness(), new Emptiness(), new Wall(), new Emptiness(), new Emptiness(), new Emptiness(), new Wall(), new Emptiness(), new Emptiness()},
             {new Emptiness(), new Emptiness(), new Emptiness(), new Emptiness(), new Wall(), new Emptiness(), new Emptiness(), new Emptiness(), new Emptiness(), new Emptiness(), new Emptiness()}
     };
-    private final List<AbstractMovingFigur> movingObjects = new ArrayList<>();
+    private final List<AbstractMovingFigur> movingObjects = new CopyOnWriteArrayList<>();
     private Player player = new Player();
 
     public ArrayCollection(Loader loader) {
@@ -118,10 +119,12 @@ public class ArrayCollection extends CollectionPublisherImpl {
 
         AbstractFigur swapedFigur = new Emptiness();
         switch (action) {
+            case LOSE:
+                movingObjects.remove(player);
             case BOT_GOLD:
                 swapedFigur = nextObject;
             case ADD_GOLD:
-            case LOSE:
+
             case WIN:
             case MOVE:
                 setObjectByCoordinate(movingFigur.getY(), movingFigur.getX(), swapedFigur);

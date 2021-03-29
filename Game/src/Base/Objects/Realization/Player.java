@@ -29,6 +29,9 @@ public class Player extends AbstractMovingFigur implements Serializable { ;
 
     @Override
     public Action process(AbstractFigur nextObject) {
+        if(countSteps == 0){
+            return Action.LOSE;
+        }
         Action result = super.process(nextObject);
 
         if(result != Action.NONE){
