@@ -43,7 +43,7 @@ public class ArrayCollection extends CollectionPublisherImpl {
         for (int i = 0; i < data.length; i++) {
             for (int j = 0; j < data[i].length; j++) {
 
-                if (data[i][j] instanceof Player) {
+                if (data[i][j].getObjectType() == ObjectType.PLAYER ) {
                     player = (Player) data[i][j];
                 }
 
